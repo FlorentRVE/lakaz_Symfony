@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Macros{% endblock %}
+
+{% block body %}
+    <h1>Macros</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ macro.id }}</td>
+            </tr>
+            <tr>
+                <th>Calorie</th>
+                <td>{{ macro.calorie }}</td>
+            </tr>
+            <tr>
+                <th>Proteine</th>
+                <td>{{ macro.proteine }}</td>
+            </tr>
+            <tr>
+                <th>Glucide</th>
+                <td>{{ macro.glucide }}</td>
+            </tr>
+            <tr>
+                <th>Lipide</th>
+                <td>{{ macro.lipide }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_macros_index') }}">back to list</a>
+
+    <a href="{{ path('app_macros_edit', {'id': macro.id}) }}">edit</a>
+
+    {{ include('macros/_delete_form.html.twig') }}
+{% endblock %}

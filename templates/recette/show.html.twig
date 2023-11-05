@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recette{% endblock %}
+
+{% block body %}
+    
+    <div class="flex flex-col w-4/5 mx-auto mt-6">
+
+        <div class="flex flex-col p-2 font-semibold">
+
+            <h1 class="text-center text-4xl uppercase text-red-500 font-bold py-5">{{ recette.label | raw }}</h1>
+
+            <div>
+                <img src={{asset('images/' ~ (recette.image ? recette.image : 'defaut.jpg'))}} class="w-3/4 mx-auto max-h-80 object-cover rounded-2xl my-6"/>
+            </div>
+
+            <div class="self-center bg-green-400 font-semibold p-4 py-2 rounded-lg mb-5">
+                <p>{{recette.categorie}}</p>
+            </div>
+
+            <div class="mb-10 bg-yellow-200 p-4 rounded-2xl">
+
+                <div class="flex mb-4 items-center">
+                    <i class="fa-solid fa-comment-dots text-orange-600 text-xl font-bold"></i>
+                    <h2 class="text-xl text-orange-600 font-bold mx-2 uppercase">Description</h2>
+                    <div class="flex-1 h-[3px] bg-orange-600 self-center rounded-3xl mt-1"></div>
+                </div>
+
+                <div class="">{{ recette.description | raw }}</div>
+            </div>
+
+            <div class="mb-10 bg-green-300 p-4 rounded-2xl">
+
+                <div class="flex mb-4 items-center">
+                    <i class="fa-solid fa-wheat-awn-circle-exclamation text-orange-600 text-xl font-bold"></i>
+                    <h2 class="text-xl text-orange-600 font-bold mx-2 uppercase">Ingrédients</h2>
+                    <div class="flex-1 h-[3px] bg-orange-600 self-center rounded-3xl mt-1"></div>
+                </div>
+
+                <div class="">{{ recette.ingredients | raw }}</div>
+            </div>
+
+            <div class="mb-10 bg-yellow-200 p-4 rounded-2xl">
+
+                <div class="flex mb-4 items-center">
+                    <i class="fa-solid fa-kitchen-set text-orange-600 text-xl font-bold"></i>
+                    <h2 class="text-xl text-orange-600 font-bold mx-2 uppercase">Etapes</h2>
+                    <div class="flex-1 h-[3px] bg-orange-600 self-center rounded-3xl mt-1"></div>
+                </div>
+
+                <div class="">{{ recette.etapes | raw }}</div>
+            </div>
+
+            <div class="mb-10 bg-slate-700 p-4 rounded-2xl">
+
+                <div class="flex mb-4 items-center">
+                    <i class="fa-solid fa-scale-balanced text-orange-600 text-xl font-bold"></i>
+                    <h2 class="text-xl text-orange-600 font-bold mx-2 uppercase">Macros</h2>
+                    <div class="flex-1 h-[3px] bg-orange-600 self-center rounded-3xl mt-1"></div>
+                </div>
+
+                <div>
+                    <p class="text-blue-500 my-2 list-disc font-bold text-lg">Calorie: {{ recette.macros.calorie }}Cal</p>
+                    <p class="text-red-500 my-2 list-disc font-bold text-lg">Protéine: {{ recette.macros.proteine }}g</p>
+                    <p class="text-yellow-500 my-2 list-disc font-bold text-lg">Glucide: {{ recette.macros.glucide }}g</p>
+                    <p class="text-orange-500 my-2 list-disc font-bold text-lg">Lipide: {{ recette.macros.lipide }}g</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center">
+
+            <a href="{{ path('app_recette_index') }}" class="bg-blue-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Gestion recettes</a>
+            
+            <div class="flex gap-3 rounded-xl p-2 justify-center">
+
+                <a href="{{ path('app_recette_edit', {'id': recette.id}) }}" class="bg-yellow-500 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Modifier</a>
+                {{ include('recette/_delete_form.html.twig') }}
+            </div>
+
+        </div>
+    </div>
+    
+    <footer>
+
+        <div class="bg-green-400 rounded-t-2xl flex justify-center mt-9 h-16 items-center">
+
+            <p>Copyright</p>
+        </div>
+    </footer>
+{% endblock %}

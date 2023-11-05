@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Macros index{% endblock %}
+
+{% block body %}
+    <h1>Macros index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Calorie</th>
+                <th>Proteine</th>
+                <th>Glucide</th>
+                <th>Lipide</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for macro in macros %}
+            <tr>
+                <td>{{ macro.id }}</td>
+                <td>{{ macro.calorie }}</td>
+                <td>{{ macro.proteine }}</td>
+                <td>{{ macro.glucide }}</td>
+                <td>{{ macro.lipide }}</td>
+                <td>
+                    <a href="{{ path('app_macros_show', {'id': macro.id}) }}">show</a>
+                    <a href="{{ path('app_macros_edit', {'id': macro.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_macros_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,64 @@
+
+{# ========== Formulaire principal, utiliser pour la création et modification des demandes ============ #}
+
+<div class="bg-slate-800 p-7 mx-auto my-6 rounded-xl w-4/5 shadow-xl">
+    {{ form_errors(form) }}
+
+    {{ form_start(form) }}
+        <div class="w-11/12 mx-auto flex flex-col">
+
+            <div class="mb-8 flex flex-col">
+                {{ form_label(form.label, 'Nom de la recette', {'label_attr': {'class': 'uppercase font-bold mb-2 text-xl text-slate-50'}}) }}
+                {{ form_widget(form.label, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+            </div>
+
+            <div class="mb-8 flex flex-col">
+                {{ form_label(form.description, 'Description', {'label_attr': {'class': 'uppercase font-bold mb-2 text-xl text-slate-50'}}) }}
+                {{ form_widget(form.description, {'attr': {'class': 'p-2 rounded-lg'}}) }}
+            </div>
+
+            <div class="mb-8 flex flex-col">
+                {{ form_label(form.ingredients, 'Ingredients', {'label_attr': {'class': 'uppercase font-bold mb-2 text-xl text-slate-50'}}) }}
+                {{ form_widget(form.ingredients, {'attr': {'class': 'rounded-lg font-semibold uppercase p-2'}}) }}
+            </div>
+
+            <div class="mb-8 flex flex-col">
+                {{ form_label(form.etapes, 'Etapes', {'label_attr': {'class': 'uppercase font-bold mb-2 text-xl text-slate-50'}}) }}
+                {{ form_widget(form.etapes, {'attr': {'class': 'rounded-lg font-semibold uppercase p-2'}}) }}
+            </div>
+
+            <div class="mb-8 flex flex-col">
+                {{ form_label(form.categorie, 'Choisir une catégorie', {'label_attr': {'class': 'uppercase font-bold mb-2 text-xl text-slate-50'}}) }}
+                {{ form_widget(form.categorie, {'attr': {'class': 'font-semibold uppercase p-2'}}) }}
+            </div>
+
+            <div class="flex flex-col w-[10%] mb-8">
+                <p class="uppercase font-bold mb-4 text-xl text-slate-50">Macros</p>
+                <div class="mb-2 flex">
+                    {{ form_label(form.macros.calorie, 'Calorie', {'label_attr': {'class': 'text-slate-50 font-semibold mr-2'}}) }}
+                    {{ form_widget(form.macros.calorie, {'attr': {'class': 'rounded-lg font-semibold px-2'}}) }}
+                </div>
+                <div class="mb-2 flex">
+                    {{ form_label(form.macros.proteine, 'Protéine', {'label_attr': {'class': 'text-slate-50 font-semibold mr-2'}}) }}
+                    {{ form_widget(form.macros.proteine, {'attr': {'class': 'rounded-lg font-semibold px-2'}}) }}
+                </div>
+                <div class="mb-2 flex">
+                    {{ form_label(form.macros.glucide, 'Glucide', {'label_attr': {'class': 'text-slate-50 font-semibold mr-2'}}) }}
+                    {{ form_widget(form.macros.glucide, {'attr': {'class': 'rounded-lg font-semibold px-2'}}) }}
+                </div>
+                <div class="mb-2 flex">
+                    {{ form_label(form.macros.lipide, 'Lipide', {'label_attr': {'class': 'text-slate-50 font-semibold mr-2'}}) }}
+                    {{ form_widget(form.macros.lipide, {'attr': {'class': 'rounded-lg font-semibold px-2'}}) }}
+                </div>
+
+            </div>
+
+            <div class="flex flex-col w-full">
+                {{ form_label(form.image, 'Image', {'label_attr': {'class': 'uppercase font-bold mb-4 text-xl text-slate-50'}}) }}
+                {{ form_widget(form.image, {'attr': {'class': 'text-slate-50 font-semibold'}}) }}
+            </div>
+
+            <button class="btn bg-blue-800 text-slate-50 rounded-2xl text-center hover:brightness-125 shadow-lg font-bold px-7 py-3 self-end w-1/3 text-lg">{{ button_label|default('Créer la recette') }}</button>
+        </div>
+    {{ form_end(form) }}
+</div>

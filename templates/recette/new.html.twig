@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Recette{% endblock %}
+
+{% block body %}
+     <h1 class="text-center text-4xl uppercase text-red-500 font-bold py-5">Créer une nouvelle recette</h1>
+
+    {{ include('recette/_form.html.twig') }}
+
+    <div class="flex justify-between w-4/5 mx-auto">
+        <a href="{{ path('app_recette_index') }}"  class="bg-blue-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
+    </div>
+
+        <footer>
+
+            <div class="bg-green-400 rounded-t-2xl flex justify-center mt-9 h-16 items-center">
+
+                <p>Copyright</p>
+            </div>
+        </footer>
+
+{% endblock %}

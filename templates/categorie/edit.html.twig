@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Categorie{% endblock %}
+
+{% block body %}
+    <h1 class="text-center text-4xl uppercase text-red-500 font-bold py-5">Modifier une catégorie</h1>
+    
+    {{ include('categorie/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+
+    <div class="flex justify-between w-4/5 mx-auto">
+        <a href="{{ path('app_categorie_index') }}" class="bg-blue-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
+
+        {{ include('categorie/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

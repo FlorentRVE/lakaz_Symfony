@@ -1,0 +1,43 @@
+{# templates/login/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# ... #}
+
+{% block body %}
+
+
+    <h1 class="text-center text-3xl uppercase text-slate-100 font-bold bg-slate-800 py-5 shadow-xl">Connexion</h1>
+
+    <div class="flex flex-col w-2/4 mx-auto">
+        <form action="{{ path('app_login') }}" method="post" class="bg-slate-800 p-7 my-6 rounded-xl shadow-xl flex flex-col">
+
+            <div class="mb-8 flex flex-col">
+                <label for="username" class="text-slate-100 uppercase font-semibold mb-2">Identifiant:</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" class="p-2 rounded-lg">
+            </div>
+
+            <div class="mb-8 flex flex-col">
+                <label for="password" class="text-slate-100 uppercase font-semibold mb-2">Mot de passe:</label>
+                <input type="password" id="password" name="_password" class="p-2 rounded-lg">
+            </div>
+
+            {# ========= Redirection après login ========= #}
+            <input type="hidden" name="_target_path" value="/recette">
+
+            <div class="self-end">
+                <button type="submit" class="btn bg-green-500 rounded-2xl text-center hover:brightness-125 shadow-lg font-bold px-7 py-3 text-lg">Se connecter</button>
+            </div>
+        </form>
+
+        <div class="">
+            <a href="{{ path('app_home') }}"  class="bg-sky-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
+        </div>
+    </div>
+
+    {% if error %}
+        <div class="text-center">
+            <p class="text-xl">{{ errorMsg }}</p>
+            <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+        </div>
+    {% endif %}
+{% endblock %}

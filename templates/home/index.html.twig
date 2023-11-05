@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recette Lakaz{% endblock %}
+
+{% block body %}
+
+    <div class="flex flex-col">
+
+        {# ========== Page principale FAQ =========#}
+
+        {# ========= HEADER ========= #}
+        <header class="bg-green-500 p-4 flex flex-col items-center">
+        
+            
+            <div class="flex w-full justify-between">
+            
+                {# ========= LOGO ======== #}
+                <img src="{{ asset('images/Recette_lakaz_logo.png') }}" alt="Logo" class="h-auto w-20">
+
+                {# ========== Barre de recherche =========#}
+                <form action="#" method="get" class="p-4 text-lg text-center font-semibold w-full">
+                    {# <label for="search" class="text-slate-100">Rechercher une recette </label> #}
+                    <input type="text" id="search" name="search" value="{{ searchTerm }}" class="w-1/2 text-slate-900 px-2 rounded-lg bg-lime-300" placeholder="Rechercher une recette ...">
+                    <button type="submit" class="text-center px-4 py-1 hover:brightness-125 text-lime-200 text-xl transition-all hover:scale-110"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+
+                {# ========= Bouton login ========== #}
+
+                {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('app_recette_index') }}"  class="flex flex-col p-4 text-center transition-all hover:scale-105">
+                        <i class="fa-solid fa-gears text-slate-800 text-3xl text-center px-4 py-1 font-semibold"></i>
+                    </a>
+                {% else %}
+
+                <a href="{{ path('app_login') }}"  class="flex flex-col p-4 text-center transition-all hover:scale-105">
+                    <i class="fa-solid fa-user text-slate-800 text-3xl text-center px-4 py-1 font-semibold"></i>
+                </a>
+                {% endif %}
+            </div>
+
+
+        </header>
+
+        {# ==================== Boutons de tri par département ==============#}
+        {# Récupère les départements des questions pour créer les boutons de tri correspondant #}
+        <div class="flex justify-evenly p-3 rounded-b-2xl w-full bg-green-400">
+
+            <button class="reset bg-blue-700 text-slate-50 rounded-2xl text-center py-2 hover:brightness-125 shadow-lg font-bold cursor-pointer w-52 mr-2">Tous</button>
+
+            
+
+            {# === Pour chaque département dans le tableau on crée un bouton de tri correspondant === #}
+            {% for categorie in data %}
+                <button data-categorie="{{ categorie }}" class="category bg-blue-700 text-slate-50 rounded-2xl text-center py-2 hover:brightness-125 shadow-lg font-bold cursor-pointer w-52 active:brightness-150 focus:outline-none focus:ring focus:ring-slate-100 mr-2">{{ categorie }}</button>
+            {% endfor %}
+        </div>
+
+        {# ========== Affichage des questions regroupées par catégorie =========#}
+        <content class="flex flex-col gap-10 mt-5 mb-5 flex-grow">
+
+            <div class="flex flex-wrap justify-center gap-6 w-[80%] mx-auto rounded-2xl shadow-xl">
+
+                {# === Récupère les catégories et les stocke dans un tableau === #}
+                {% if data is not empty %}
+
+                    {# === Pour chaque catégorie on crée un container et on y affiche toutes les questions de cette catégorie === #}
+                    {% for categorie in data %}
+                        <div class="container flex flex-col gap-5 mx-auto bg-sky-200 shadow-lg rounded-xl p-4"  data-categorie={{ categorie | raw }}>
+
+                            <div class="flex mb-1">
+                                <div class="flex-1 h-[3px] bg-orange-500 self-center rounded-3xl mt-1"></div>
+                                <h2 class="text-2xl text-orange-500 font-bold mx-2 uppercase">{{ categorie }}</h2>
+                                <div class="flex-1 h-[3px] bg-orange-500 self-center rounded-3xl mt-1"></div>
+                            </div>
+
+                            <div class="flex flex-wrap justify-center">
+                                {% for recette in categorie.recettes %}
+
+                                    <a href="{{ path('app_home_show', {'id': recette.id}) }}">
+                                        <div class="objet flex flex-col relative rounded-2xl m-4 h-[400px] w-[300px] shadow-xl hover:scale-105 transition ease-in-out delay-150 hover:brightness-110 bg-cover" style="background-image:url({{ asset('images/' ~ (recette.image ? recette.image : 'defaut.jpg')) }});">
+                                            <h3 class="absolute top-[300px] text-2xl text-slate-800 font-semibold ml-5 bg-orange-500 bg-opacity-90 py-1 px-2 rounded-xl">{{ recette.label | raw }}</h3>
+                                            <div class="m-3 cursor-pointer">
+                                                <div class="bg-green-500 rounded-lg px-2 py-1 w-32 bg-opacity-60 font-semibold">
+                                                    <p class="">Calorie: {{ recette.macros.calorie }}</p>
+                                                    <p class="">Protéine: {{ recette.macros.proteine }}</p>
+                                                    <p class="">Glucides: {{ recette.macros.glucide }}</p>
+                                                    <p class="">Lipides: {{ recette.macros.lipide }}</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="bg-yellow-100 ml-4 rounded-xl p-11">
+                        <p class="text-red-500 text-xl">Aucune question ne correspond à votre recherche...</p>
+                    </div>
+                {% endif %}
+            </div>
+        </content>
+
+        {# ============= Bouton remonter de page =============== #}
+        <button class="gotop fixed bottom-10 right-5 bg-orange-500 rounded-2xl p-2 text-slate-50 font-semibold w-34 m-4 hover:brightness-125 active:brightness-150 hover:-translate-y-1 transition ease-in-out">Haut de page</button>
+        
+        <footer>
+
+            <div class="bg-green-400 rounded-t-2xl flex justify-center mt-9 h-28 items-center text-lime-200 font-semibold text-2xl">
+
+                <p>Copyright@Recette-lakaz</p>
+            </div>
+        </footer>
+
+    </div>
+{% endblock %}

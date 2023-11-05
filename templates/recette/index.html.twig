@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panneau d'administration FAQ{% endblock %}
+
+{% block body %}
+    <div class="min-h-screen">
+            {# ========== Page principale Panneau d'administration pour gérer les questions =========#}
+
+        <header>        
+            {# ========== Barre de recherche =========#}
+            <div class="ml-20 flex flex-col justify-center shadow-md w-auto items-center">
+
+                <div class="flex justify-between items-center w-[80%]">
+                
+                    <p class="text-green-500 text-xl p-2">Connecté en tant que: <span class="text-green-400 uppercase">{{ app.user.username }}<span></p>
+
+                    <a href="{{ path('app_logout') }}"  class="flex flex-col text-center transition-all hover:scale-105 p-6">
+                        <i class="fa-solid fa-right-to-bracket text-slate-800 text-3xl text-center font-semibold"></i>
+                    </a>
+                </div>
+
+                <form action="#" method="get" class="p-4 text-center flex-auto ml-24 w-full">
+                    <input type="text" id="search" name="search" value="{{ searchTerm }}" class="w-1/2 text-slate-900 p-4 text-xl font-semibold rounded-lg border border-slate-900" placeholder="Rechercher dans les questions ou réponses ...">
+                    <button type="submit" class="text-slate-800 text-center px-4 py-1 font-semibold text-2xl transition-all hover:scale-110"><i class="fa-solid fa-magnifying-glass"></i></button>
+                
+                </form>
+            </div>
+
+
+
+        </header>
+
+        <sidebar class="bg-slate-800 fixed left-0 top-0 h-screen">
+            {# =========== Sidebar ============= #}
+            <div class="flex flex-col items-center w-48">
+
+                <a href="{{ path('app_home') }}">
+                    <img src="{{ asset('images/Recette_lakaz_logo.png') }}" alt="Logo" class="p-4 h-auto w-32">
+                <a>
+
+                <div class="flex flex-col items-center gap-3 mt-10 border-t border-slate-600 pt-4">
+
+                    {# ===== Affichage de la gestion des utilisateurs seulement si ROLE_ADMIN ===== #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_categorie_index') }}" class="text-slate-50 text-center hover:bg-blue-800 mb-5 px-4 py-1 rounded-lg w-full">Gestion catégorie</a>
+                        <a href="{{ path('app_user_index') }}" class="text-slate-50 text-center hover:bg-blue-800 mb-5 px-4 py-1 rounded-lg w-full">Gestion utilisateurs</a>
+                    {% endif %}
+                </div>
+            </div>
+
+
+        </sidebar>
+
+
+        <content>
+            <div class="ml-36 p-5">
+
+                {# =========== Bloc bouton tri et nouvelle question========== #}
+                <div class="flex flex-col my-10 w-11/12 mx-auto lg:flex-row lg:justify-between lg:items-center lg:gap-4">
+
+                    <div class="flex flex-col gap-2 mb-5">
+                        <h1 class="text-xl uppercase text-slate-900 font-bold text-center mt-4">Gestion des recettes</h1>
+
+                        {# ======== Affichage des boutons de tri seulement si ROLE_ADMIN ====== #}
+                        {# {% if is_granted('ROLE_ADMIN') %} #}
+
+                            {# ========== Boutons de tri par département =========#}
+                            {# Récupère les départements des questions pour créer les boutons de tri correspondant #}
+                            <div class="flex flex-wrap justify-center gap-3 bg-slate-800 p-3 rounded-2xl shadow-lg uppercase">
+
+                                <p class="reset bg-blue-800 text-slate-50 rounded-2xl text-center py-2 px-4 hover:brightness-125 shadow-lg font-bold cursor-pointer w-44 lg:w-auto">Tous</p>
+
+                                {# === Pour chaque département dans le tableau qu'on vient de créer, on crée un bouton de tri correspondant === #}
+                                {% for categorie in data %}
+                                    <p data-categorie="{{ categorie }}" class="category bg-blue-800 text-slate-50 rounded-2xl text-center py-2 px-4 hover:brightness-125 shadow-lg font-bold cursor-pointer w-44 lg:w-auto">{{ categorie }}</p>
+                                {% endfor %}
+                            </div>
+                        {# {% endif %} #}
+                    </div>
+
+
+                    {# ========== Bouton renvoyant au formulaire de création de question =========#}
+                    <a href="{{ path('app_recette_new') }}" class="bg-green-500 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-bold">Nouvelle recette</a>
+                    
+                </div>
+
+
+
+                {# ========== Affichage des questions/réponses sous forme de tableau =========#}
+                <table class="table mx-auto shadow-xl text-lg w-11/12">
+
+                    <thead>
+
+                        <tr class="bg-slate-800 text-slate-100 border-2 border-slate-900 uppercase">
+
+                            <th>Catégorie</th>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="bg-green-500">
+
+                    {% for categorie in data %}
+                        {% for recette in categorie.recettes %}
+
+                        <tr class="container border-2 border-slate-900 objet" data-categorie={{ categorie }}>
+
+                            <td class="p-2 bg-slate-50 text-slate-900 text-center border-2 border-slate-900 uppercase font-extrabold w-28">{{ recette.categorie }}</td>
+                            <td class="p-2 bg-slate-50 text-slate-900 text-center border-2 border-slate-900 uppercase font-extrabold w-28">{{ recette.label | raw }}</td>
+                            <td class="p-2 bg-slate-50 text-slate-900 text-center border-2 border-slate-900 uppercase font-extrabold w-28">{{ recette.description | raw }}</td>
+                            <td class="bg-slate-800 p-2 text-center w-6">
+                                <a href="{{ path('app_recette_show', {'id': recette.id}) }}" class="bg-blue-700  text-center px-3  hover:brightness-125 rounded-lg font-semibold text-slate-50">Voir</a>
+                                <a href="{{ path('app_recette_edit', {'id': recette.id}) }}" class="bg-blue-700 text-center px-3  hover:brightness-125 rounded-lg font-semibold text-slate-50">Modifier</a>
+                                <form method="post" action="{{ path('app_recette_delete', {'id': recette.id}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer cette recette ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recette.id) }}">
+                                    <button class="btn text-red-700  text-center px-3  hover:brightness-125 rounded-lg font-semibold">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="5" class="text-slate-100 p-3">Aucune demande ne correspond à votre recherche...</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </content>
+    </div>
+
+{% endblock %}

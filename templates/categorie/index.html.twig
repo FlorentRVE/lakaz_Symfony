@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie index{% endblock %}
+
+{% block body %}
+    <div class="">
+
+        <h1 class="text-center text-4xl uppercase text-red-500 font-bold py-5">Gestion categorie</h1>
+
+        <content>
+            <div class="flex flex-col gap-10 mx-auto w-[95%]">
+
+                {# ========== Bouton renvoyant au formulaire de création de categorie =========#}
+                <div class="mt-10 self-end">
+                    <a href="{{ path('app_categorie_new') }}" class="bg-green-500 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-bold">Nouvelle catégorie</a>
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr class="bg-slate-800 text-slate-100 border-2 border-slate-900 uppercase">
+                            <th>Nom</th>
+                            <th class="w-20">actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-slate-800">
+
+                    {% for categorie in categories %}
+                        <tr class="container border-2 border-slate-900 objet">
+                            <td class="p-2 bg-slate-50 text-slate-900 text-center border-2 border-slate-900 font-extrabold w-28">{{ categorie.label }}</td>
+                            <td class="bg-slate-800 p-2 text-center w-[30%]">
+                                <a href="{{ path('app_categorie_show', {'id': categorie.id}) }}" class="bg-blue-700  text-center px-3  hover:brightness-125 rounded-lg font-semibold text-slate-50">Voir</a>
+                                <a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}" class="bg-blue-700  text-center px-3  hover:brightness-125 rounded-lg font-semibold text-slate-50">Modifier</a>
+                                <form method="post" action="{{ path('app_categorie_delete', {'id': categorie.id}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer cette catégorie ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
+                                    <button class="btn text-red-700  text-center px-3  hover:brightness-125 rounded-lg font-semibold">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+
+                            <td colspan="5" class="text-slate-100 p-3">Aucune demande ne correspond à votre recherche...</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="">
+                    <a href="{{ path('app_recette_index') }}" class="bg-blue-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
+
+                </div>
+            </div>
+
+        </content>
+    </div>
+
+{% endblock %}
