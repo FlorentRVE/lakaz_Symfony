@@ -3,7 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="images/Recette_lakaz_logo.png" />
+        <link rel="icon" href="{{ asset('images/Recette_lakaz_logo.png') }}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta property="og:image" content="{{ asset('images/Recette_lakaz_logo.png') }}" />
+        <meta
+        name="description"
+        content="Recette i essaye être healthy pou fait la kaz"
+        />
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
