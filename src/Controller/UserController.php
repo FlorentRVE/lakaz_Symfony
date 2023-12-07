@@ -59,6 +59,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash('success', 'Utilisateur modifié avec succès !');
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         } else {
             
@@ -81,6 +82,7 @@ class UserController extends AbstractController
             $entityManager->flush();
         }
 
+        $this->addFlash('success', 'Utilisateur supprimé avec succès !');
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }

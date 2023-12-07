@@ -11,7 +11,7 @@
             <div class="flex flex-col gap-10 mx-auto w-[95%]">
 
                 {# ========== Bouton renvoyant au formulaire de création de categorie =========#}
-                <div class="mt-10 self-end">
+                <div class="mt-10 flex flex-col">
                     <a href="{{ path('app_categorie_new') }}" class="bg-green-500 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-bold">Nouvelle catégorie</a>
                 </div>
 
@@ -45,7 +45,7 @@
                     </tbody>
                 </table>
 
-                <div class="">
+                <div class="flex flex-col">
                     <a href="{{ path('app_recette_index') }}" class="bg-blue-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
 
                 </div>

@@ -1,7 +1,7 @@
 {# templates/login/index.html.twig #}
 {% extends 'base.html.twig' %}
 
-{# ... #}
+{% block title %}Login{% endblock %}
 
 {% block body %}
 
@@ -24,14 +24,10 @@
             {# ========= Redirection après login ========= #}
             <input type="hidden" name="_target_path" value="/recette">
 
-            <div class="self-end">
-                <button type="submit" class="btn bg-green-500 rounded-2xl text-center hover:brightness-125 shadow-lg font-bold px-7 py-3 text-lg">Se connecter</button>
-            </div>
+            <button type="submit" class="btn bg-green-500 rounded-2xl text-center hover:brightness-125 shadow-lg font-bold px-3 py-1 text-lg">Se connecter</button>
         </form>
 
-        <div class="">
-            <a href="{{ path('app_home') }}"  class="bg-sky-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
-        </div>
+        <a href="{{ path('app_home') }}"  class="bg-sky-800 text-slate-50 rounded-2xl text-center px-5 py-3 hover:brightness-125 shadow-lg font-semibold">Retour à la liste</a>
     </div>
 
     {% if error %}

@@ -57,8 +57,8 @@
                 {{ form_label(form.image, 'Image', {'label_attr': {'class': 'uppercase font-bold mb-4 text-xl text-slate-50'}}) }}
                 {{ form_widget(form.image, {'attr': {'class': 'text-slate-50 font-semibold'}}) }}
             </div>
-
-            <button class="btn bg-blue-800 text-slate-50 rounded-2xl text-center hover:brightness-125 shadow-lg font-bold px-7 py-3 self-end w-1/3 text-lg">{{ button_label|default('Créer la recette') }}</button>
+ 
+            <button class="btn bg-blue-800 text-slate-50 rounded-2xl mt-8 text-center hover:brightness-125 shadow-lg font-bold px-7 py-3 text-lg">{{ button_label|default('Créer la recette') }}</button>
         </div>
     {{ form_end(form) }}
 </div>

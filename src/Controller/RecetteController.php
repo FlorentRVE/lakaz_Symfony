@@ -69,7 +69,8 @@ class RecetteController extends AbstractController
                 $entityManager->persist($recette);
                 $entityManager->flush();
 
-            return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
+                $this->addFlash('success', 'Votre recette a bien été crée !');
+                return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('recette/new.html.twig', [
@@ -122,6 +123,7 @@ class RecetteController extends AbstractController
             }
             $entityManager->flush();
 
+            $this->addFlash('success', 'Votre recette a bien été modifiée !');
             return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -139,6 +141,7 @@ class RecetteController extends AbstractController
             $entityManager->flush();
         }
 
+        $this->addFlash('success', 'Votre recette a bien été supprimé !');
         return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -4,23 +4,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // ================================ Variables ============================
     
     let category_choice;
-    
+        
     let buttons = document.querySelectorAll('.category'); // Récupère tous les boutons de sélection de catégorie
-    // let recettes = document.querySelectorAll('.objet'); // Récupère toutes les blocs questions/réponses
     let containers = document.querySelectorAll('.container'); // Récupère tous les conteneurs de sous-catégories
+    let closeButton = document.querySelectorAll(".close");
 
     let buttonReset = document.querySelector('.reset'); // Récupère le boutton pour reset les catégories
 
     let goTop = document.querySelector('.gotop');
 
     // ================================== Fonctions ====================================
-    
-        const scrollToTop = () => {
-            window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-            });
-        };
+
+    closeButton.forEach((element) => {
+        element.addEventListener("click", () => {
+        const alertDiv = element.closest(".alert");
+        alertDiv.style.display = "none";
+        });
+    });
+
+    const scrollToTop = () => {
+        window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+        });
+    };
     
       // ========================== Evènement sélection catégorie ==============================
 

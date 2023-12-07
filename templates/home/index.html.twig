@@ -61,14 +61,14 @@
         {# ========== Affichage des questions regroupées par catégorie =========#}
         <content class="flex flex-col gap-10 mt-5 mb-5 flex-grow">
 
-            <div class="flex flex-wrap justify-center gap-6 w-[80%] mx-auto rounded-2xl shadow-xl">
+            <div class="flex flex-wrap justify-center gap-6 w-[80%] mx-auto rounded-2xl">
 
                 {# === Récupère les catégories et les stocke dans un tableau === #}
                 {% if data is not empty %}
 
                     {# === Pour chaque catégorie on crée un container et on y affiche toutes les questions de cette catégorie === #}
                     {% for categorie in data %}
-                        <div class="container flex flex-col gap-5 mx-auto bg-sky-200 shadow-lg rounded-xl p-4"  data-categorie={{ categorie | raw }}>
+                        <div class="container flex flex-col gap-5 mx-auto bg-sky-200 rounded-xl p-4"  data-categorie={{ categorie | raw }}>
 
                             <div class="flex mb-1">
                                 <div class="flex-1 h-[3px] bg-orange-500 self-center rounded-3xl mt-1"></div>
