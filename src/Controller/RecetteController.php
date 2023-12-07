@@ -5,14 +5,12 @@ namespace App\Controller;
 use App\Entity\Recette;
 use App\Form\RecetteType;
 use App\Repository\CategorieRepository;
-use App\Repository\RecetteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/recette')]
@@ -40,11 +38,9 @@ class RecetteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $image = $form->get('image')->getData();
 
             if ($image) {
-                
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
 
                 // this is needed to safely include the file name as part of the URL
@@ -66,11 +62,12 @@ class RecetteController extends AbstractController
                 $recette->setImage($newFilename);
             }
 
-                $entityManager->persist($recette);
-                $entityManager->flush();
+            $entityManager->persist($recette);
+            $entityManager->flush();
 
-                $this->addFlash('success', 'Votre recette a bien été crée !');
-                return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Votre recette a bien été crée !');
+
+            return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('recette/new.html.twig', [
@@ -97,7 +94,6 @@ class RecetteController extends AbstractController
             $image = $form->get('image')->getData();
 
             if ($image) {
-                
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
 
                 // this is needed to safely include the file name as part of the URL
@@ -106,13 +102,11 @@ class RecetteController extends AbstractController
 
                 // Move the file to the directory where brochures are stored
                 try {
-
                     $oldImage = $recette->getImage();
-      
-                    unlink($this->getParameter('images_directory').'/'.$oldImage);                    
 
-                    $image->move($this->getParameter('images_directory'),$newFilename);
+                    unlink($this->getParameter('images_directory').'/'.$oldImage);
 
+                    $image->move($this->getParameter('images_directory'), $newFilename);
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
@@ -124,6 +118,7 @@ class RecetteController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre recette a bien été modifiée !');
+
             return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -142,6 +137,7 @@ class RecetteController extends AbstractController
         }
 
         $this->addFlash('success', 'Votre recette a bien été supprimé !');
+
         return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
     }
 }

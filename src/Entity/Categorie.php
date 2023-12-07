@@ -26,7 +26,8 @@ class Categorie
         $this->recettes = new ArrayCollection();
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->label;
     }
 
@@ -76,6 +77,4 @@ class Categorie
 
         return $this;
     }
-
-
 }

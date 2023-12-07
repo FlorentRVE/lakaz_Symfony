@@ -39,7 +39,7 @@ class Macros
 
     //     return 'Calorie: ' . $this->calorie . ', Proteine: ' . $this->proteine . ', Glucide: ' . $this->glucide . ', Lipide: ' . $this->lipide;
     // }
-    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,6 +122,4 @@ class Macros
 
         return $this;
     }
-
-
 }

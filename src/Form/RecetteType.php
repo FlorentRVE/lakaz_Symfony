@@ -3,12 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Recette;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-
 
 class RecetteType extends AbstractType
 {
@@ -24,9 +23,9 @@ class RecetteType extends AbstractType
             ->add('image', FileType::class, [
                 'label' => 'Image',
                 'mapped' => false,
-                'required' => false
+                'required' => false,
             ])
-            
+
         ;
     }
 

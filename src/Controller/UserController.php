@@ -60,17 +60,16 @@ class UserController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Utilisateur modifié avec succès !');
+
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         } else {
-            
             $error = $form->getErrors(true);
- 
         }
 
         return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
-            'error' => $error
+            'error' => $error,
         ]);
     }
 
@@ -83,6 +82,7 @@ class UserController extends AbstractController
         }
 
         $this->addFlash('success', 'Utilisateur supprimé avec succès !');
+
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }
